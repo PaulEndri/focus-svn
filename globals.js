@@ -1,10 +1,11 @@
 import { activeVersion } from "./constants.js";
 
 export default {
-    version: {
-        alias: 'v',
+    focusVersion: {
+        alias: 'fv',
         default: activeVersion,
         describe: 'focus trunk version to use',
+        requiresArg: false,
         global: true,
         number: true
     },
@@ -12,6 +13,7 @@ export default {
         alias: 'pwd',
         default: process.cwd(),
         describe: 'directory to execute commands from',
+        requiresArg: false,
         global: true,
         string: true
     }

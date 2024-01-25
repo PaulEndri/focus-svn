@@ -3,7 +3,7 @@ import { SVN } from "../svn.js";
 
 export default {
     command: 'switch',
-    aliases: ['co', 'cp'],
+    aliases: ['co', 'checkout'],
     describe: "switch current directory branch",
     builder: {
         branch: { default: null }

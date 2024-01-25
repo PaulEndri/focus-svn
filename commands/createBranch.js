@@ -2,7 +2,8 @@ import { getBranchName, getUrls } from "../helpers.js";
 import { SVN } from "../svn.js";
 
 export default {
-    command: 'branch',
+    command: 'cp',
+    alias: ['create', 'branch'],
     describe: 'create a branch',
     builder: {
         branch: { default: null },
