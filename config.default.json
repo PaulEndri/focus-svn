@@ -1,0 +1,6 @@
+{
+    "activeTrunk": 12,
+    "root": "svn://focus-sis.com/focus",
+    "branchPrefix": "FOCUS",
+    "branchDir": "/branches/"
+}

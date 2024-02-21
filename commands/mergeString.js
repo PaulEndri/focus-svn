@@ -1,17 +1,26 @@
-import { root } from "../constants.js";
-import { SVN } from "../svn.js";
-
 export default {
     command: 'getMergeString',
-    alias: ['ms'],
+    aliases: ['ms'],
     describe: 'spit out a copy/paste ready merge string for local branch',
-    handler: async function mergeString({ cwd }) {
-        console.log('[test]');
-        const svn = new SVN(cwd);
-        const info = await svn.localInfo();
+    builder: {
+        branchName: {
+            type: 'string',
+            default: null
+        },
+        branchSource: {
+            type: 'string',
+            default: null,
+            describe: 'Use this as url base instead of automatically generated root'
+        }
+    },
+    handler: async function mergeString({ branch, svn, branchSource }) {
+        const { dev } = svn.getUrls();
+        const branchName = await svn.getBranchName(branch)
+        const branchUrl = `${branchSource ?? dev}/${branchName}`;
 
-        const [{revision}] = await svn.getHistory();
+        const info = await svn.info(branchUrl);
+        const revision = info['Revision'];
 
-        console.log(svn.mergeString(info['Relative URL'].replace('^', root), revision));
+        svn.log(svn.mergeString(branchUrl, revision));
     }
 }

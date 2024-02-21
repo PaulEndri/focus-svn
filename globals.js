@@ -1,20 +1,23 @@
-import { activeVersion } from "./constants.js";
-
 export default {
     focusVersion: {
-        alias: 'fv',
-        default: activeVersion,
+        alias: ['fv', 'version'],
+        default: null,
         describe: 'focus trunk version to use',
         requiresArg: false,
-        global: true,
-        number: true
+        global: true
     },
-    cwd: {
-        alias: 'pwd',
-        default: process.cwd(),
-        describe: 'directory to execute commands from',
+    silent: {
+        alias: ['s'],
+        default: false,
+        describe: 'silence all output',
         requiresArg: false,
-        global: true,
-        string: true
+        global: true
+    },
+    verbose: {
+        alias: ['v'],
+        default: false,
+        describe: 'return extra/verbose output',
+        requiresArg: false,
+        global: true
     }
 }

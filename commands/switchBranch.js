@@ -1,22 +1,20 @@
-import { getBranchName, getUrls } from "../helpers.js";
-import { SVN } from "../svn.js";
-
 export default {
-    command: 'switch',
-    aliases: ['co', 'checkout'],
+    command: 'switch [autoBranch]',
     describe: "switch current directory branch",
     builder: {
         branch: { default: null }
     },
-    handler: async function switchBranch({ version, branch }) {
-        const svn = new SVN(process.cwd());
-        const { dev, trunk } = getUrls(version);
+    handler: async function switchBranch({ svn, branch, autoBranch }) {
+        let activeBranch = autoBranch ?? branch;
+        const { dev } = svn.getUrls();
 
-        if (branch === 'trunk') {
-            console.log(await svn.switch(trunk));
-            return;
+        if (activeBranch !== 'trunk') {
+            activeBranch = `${dev}/${await svn.getBranchName(activeBranch)}`;
         }
 
-        console.log(await svn.switch(`${dev}/${await getBranchName(branch)}`));
+        await svn.switch(activeBranch);
+
+        svn.log(`Switched to ${activeBranch}`);
+
     }
 }

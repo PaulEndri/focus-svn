@@ -1,29 +1,30 @@
-import { SVN } from '../svn.js';
-import { getBranchName, getUrls } from '../helpers.js';
-
 export default {
     command: 'rebase',
     describe: 'create a new branch off the chosen trunk and merge the target branch into it',
     builder: {
-        branch: { default: null },
-        reverse: { default: false, describe: 'optional to reverse the --rebase-temp suffix to recreate original' }
+        target: { default: null, type: 'string' },
+        source: { default: null, type: 'string' },
+        branch: { default: null, type: 'string' }
     },
-    handler: async function rebase({version, branch, cwd, reverse}) {
-        const { dev, trunk } = getUrls(version);
-        const svn = new SVN(cwd);
-        const branchName = await getBranchName(branch);
-        const tmpBranch = reverse ? `${dev}/${branchName.replace('-rebase-temp', '')}` : `${dev}/${branchName}-rebase-temp`;
-        const targetBranch = `${dev}/${branchName}`;
-        const history = await svn.getHistory();
+    handler: async function rebase({
+        target,
+        source,
+        branch,
+        svn
+    }) {
+        const { dev, trunk } = svn.getUrls();
+        const branchName = await svn.getBranchName(branch);
+        const targetBranch = target ? `${dev}/${target}` : `${dev}/${branchName}-rebase-temp`;
+        const sourceBranch = source ? `${dev}/${source}` : `${dev}/${branchName}`;
+        const history = await svn.getHistory(sourceBranch);
         const { revision } = history.pop();
 
-        if (reverse) {
-            console.log(await svn.remove(tmpBranch));
-        }
 
-        console.log(`[Creating ${tmpBranch} from ${revision}]`)
-        console.log(await svn.createBranch(trunk, tmpBranch));
-        console.log(await svn.switch(tmpBranch));
-        console.log(await svn.merge(targetBranch, revision));
+        svn.log(`Creating ${targetBranch} from ${revision}`);
+        await svn.createBranch(trunk, targetBranch);
+        svn.log(`Switching active branch to ${targetBranch}`);
+        await svn.switch(targetBranch);
+        svn.log(`Merging ${sourceBranch} at revision ${revision} into active branch`);
+        svn.log(await svn.merge(sourceBranch, revision));
     }
 }

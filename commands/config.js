@@ -1,26 +1,29 @@
-import fs from 'node:fs/promises';
-const envFileLocation = `env`;
-console.log(envFileLocation)
 export default {
-    command: 'asdasdsd',
+    command: 'config',
     describe: 'change tool default variables',
     builder: {
-        trunk: {
-            type: 'number',
-            demandOption: false,
-            describe: 'change the default trunk version',
-            optional: true
+        activeTrunk: {
+            alias: ['trunk'],
+            default: null
+        },
+        root: {
+            default: null,
+        },
+        branchPrefix: {
+            alias: ['prefix'],
+            default: null,
+            type: 'string'
         }
     },
-    handler: async function changeConfig({trunk}) {
-        console.log('[test]', { envFileLocation});
+    handler: async function changeConfig(argv) {
+        const updates = ['activeTrunk', 'branchPrefix', 'root'].map(async key => {
+            if (argv[key]) {
+                originalValue = argv.config[key];
+                await argv.config.save(key, argv[key]);
+                svn.log(`[Success] Updated ${key} from ${originalValue} to ${argv[key]}`)
+            }
+        });
 
-        const config = await fs.readFile(envFileLocation, { encoding: 'utf-8' });
-        console.log('[test]', { config});
-
-        const commands = Object.fromEntries(config.split('\n').map(l => l.split('=').map(e => e.trim())));
-        commands.ACTIVE_TRUNK = trunk;
-        const fileData = Object.entries(commands).map(e => e.join('=')).join('\n');
-        await fs.writeFile(envFileLocation, fileData);
+        await Promise.all(updates);
     }
 }

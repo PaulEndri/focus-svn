@@ -1,22 +1,28 @@
-import { getBranchName, getUrls } from "../helpers.js";
-import { SVN } from "../svn.js";
-
 export default {
-    command: 'cp',
-    alias: ['create', 'branch'],
+    command: 'cp [branchName]',
+    aliases: ['create', 'branch'],
     describe: 'create a branch',
     builder: {
         branch: { default: null },
-        switch: { default: false }
+        switchBranch: { default: false, alias: ['switch'], type: 'boolean' },
+        prefix: { default: null, type: 'string'}
     },
-    handler: async function createBranch({ cwd, version, branch, sw }) {
-        const { dev, trunk } = getUrls(version);
-        const svn = new SVN(cwd);
-        const url = `${dev}/${await getBranchName(branch)}`;
-        console.log(await svn.createBranch(trunk, url));
+    handler: async function createBranch({
+        branch,
+        switchBranch,
+        svn
+    }) {
+        const branchName = await svn.getBranchName(branch);
+        const { dev, trunk } = svn.getUrls();
+        const url = `${dev}/${branchName}`;
 
-        if (sw) {
-            console.log(await svn.switch(url));
+        await svn.createBranch(trunk, url);
+
+        svn.log(`Created Branch: ${url}`);
+
+        if (switchBranch) {
+            svn.log(`Switching to Branch: ${url}`);
+            await svn.switch(url);
         }
     }
 }
