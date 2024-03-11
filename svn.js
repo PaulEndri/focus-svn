@@ -78,6 +78,10 @@ export class SVN {
         return this.#execute(`svn rm ${target} -m "Removing Branch"`);
     }
 
+    async checkoutBranch(target) {
+        return this.#execute(`svn co ${target}`);
+    }
+
     async createBranch(trunk, target) {
         return this.#execute(`svn cp ${trunk} ${target} -m "Creating Branch"`);
     }
