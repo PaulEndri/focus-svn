@@ -1,7 +1,7 @@
 export default {
     command: 'checkout [branchName]',
     alias: ['co'],
-    describe: "switch current directory branch",
+    describe: "checkout branch in current directory",
     builder: {
         branch: { default: null },
         target: { default: null, type: 'string' }
