@@ -1,15 +1,15 @@
 export default {
-    command: 'checkout [branchName]',
-    alias: ['co'],
+    command: 'checkout [branchName] [targetName]',
+    aliases: ['co'],
     describe: "checkout branch in current directory",
     builder: {
         branch: { default: null },
         target: { default: null, type: 'string' }
     },
-    handler: async function switchBranch({ svn, branch, branchName, target }) {
+    handler: async function switchBranch({ svn, branch, branchName, targetName, target }) {
         let activeBranch = branchName ?? branch;
         let branchUrl = '';
-        let targetDir = target;
+        let targetDir = target ?? targetName;
 
         const { dev, trunk } = svn.getUrls();
 
@@ -23,7 +23,10 @@ export default {
         if (!targetDir) {
             targetDir = activeBranch
         }
-        await svn.switch(activeBranch);
+
+        svn.log(`Checking out ${branchUrl}`);
+
+        await svn.checkoutBranch(branchUrl, targetDir);
 
         svn.log(`Checked out ${branchUrl} to ${targetDir}`);
 

@@ -1,5 +1,6 @@
 export default {
     command: 'switch [branchName]',
+    aliases: ['s'],
     describe: "switch current directory branch",
     builder: {
         branch: { default: null }
