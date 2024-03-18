@@ -10,9 +10,11 @@ export default {
     handler: async function createBranch({
         branch,
         switchBranch,
+        branchName,
         svn
     }) {
-        const branchName = await svn.getBranchName(branch);
+        const actualBranch = branchName || branch;
+        const branchName = await svn.getBranchName(actualBranch);
         const { dev, trunk } = svn.getUrls();
         const url = `${dev}/${branchName}`;
 
