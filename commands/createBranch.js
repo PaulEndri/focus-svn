@@ -14,9 +14,9 @@ export default {
         svn
     }) {
         const actualBranch = branchName || branch;
-        const branchName = await svn.getBranchName(actualBranch);
+        const fullBranchName = await svn.getBranchName(actualBranch);
         const { dev, trunk } = svn.getUrls();
-        const url = `${dev}/${branchName}`;
+        const url = `${dev}/${fullBranchName}`;
 
         await svn.createBranch(trunk, url);
 

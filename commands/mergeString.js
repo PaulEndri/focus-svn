@@ -18,9 +18,8 @@ export default {
         const branchName = await svn.getBranchName(branch)
         const branchUrl = `${branchSource ?? dev}/${branchName}`;
 
-        const info = await svn.info(branchUrl);
-        const revision = info['Revision'];
+        const info = await svn.getHistory(branchUrl);
 
-        svn.log(svn.mergeString(branchUrl, revision));
+        svn.log(svn.mergeString(branchUrl, info.pop().revision));
     }
 }
