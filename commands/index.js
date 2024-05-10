@@ -5,10 +5,10 @@ import checkoutBranch from "./checkoutBranch.js";
 import switchBranch from "./switchBranch.js";
 import removeBranch from "./removeBranch.js";
 import config from "./config.js";
-import merge from "./merge.js";
+import mergeBranch from "./mergeBranch.js";
 
 export default [
-    merge,
+    mergeBranch,
     mergeString,
     checkoutBranch,
     rebase,
