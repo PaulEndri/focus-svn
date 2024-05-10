@@ -14,10 +14,10 @@ export default {
             describe: 'Use this as url base instead of automatically generated root (default: focus svn root, optional)'
         }
     },
-    handler: async function mergeString({ branch, svn, branchSource }) {
+    handler: async function mergeString({ branchName, svn, branchSource }) {
         const { dev } = svn.getUrls();
-        const branchName = await svn.getBranchName(branch)
-        const branchUrl = `${branchSource ?? dev}/${branchName}`;
+        const branch = await svn.getBranchName(branchName)
+        const branchUrl = `${branchSource ?? dev}/${branch}`;
 
         const info = await svn.getHistory(branchUrl);
 

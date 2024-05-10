@@ -9,23 +9,28 @@ export default {
         },
         root: {
             default: null,
-            describe: 'configure focus svn root'
+            describe: 'configure svn root'
         },
         branchPrefix: {
             alias: ['prefix'],
             default: null,
             type: 'string',
-            describe: 'set the default branch prefix (default: FOCUS)'
+            describe: 'set the default branch prefix'
         },
         output: {
             default: null,
             options: ['normal', 'silent', 'verbose'],
             type: 'string',
             describe: 'svn output type'
+        },
+        branchDir: {
+            default: null,
+            type: 'string',
+            describe: 'svn branch directory'
         }
     },
     handler: async function changeConfig({ svn, configService: config, ...data}) {
-        const updates = ['activeTrunk', 'branchPrefix', 'root'].map(async key => {
+        const updates = ['branchDir', 'activeTrunk', 'branchPrefix', 'root'].map(async key => {
             if (data[key]) {
                 originalValue = data[key];
                 svn.log(`Updating ${key} to ${value}`);

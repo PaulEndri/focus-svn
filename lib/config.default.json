@@ -1,5 +1,6 @@
 {
-    "activeTrunk": 12,
-    "branchPrefix": "FOCUS",
-    "branchDir": "/branches/"
+    "activeTrunk": 1,
+    "branchPrefix": "",
+    "branchDir": "",
+    "root": ""
 }
