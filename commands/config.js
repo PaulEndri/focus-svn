@@ -23,19 +23,49 @@ export default {
             type: 'string',
             describe: 'svn output type'
         },
+        verbose: {
+            default: null,
+            type: 'boolean'
+        },
+        silent: {
+            default: null,
+            type: 'boolean'
+        },
         branchDir: {
             default: null,
             type: 'string',
             describe: 'svn branch directory'
+        },
+        extract: {
+            default: null,
+            type: 'boolean',
+            describe: 'echo out the config json'
         }
     },
-    handler: async function changeConfig({ svn, configService: config, ...data}) {
-        const updates = ['branchDir', 'activeTrunk', 'branchPrefix', 'root'].map(async key => {
+    handler: async function changeConfig({ svn, configService: config, extract, load, ...data}) {
+        if (extract) {
+            const configData = await config.getConfig();
+            const inputs = Object.entries(configData).map(([key, value]) => `--${key}=${value}`).join(' ');
+            svn.log(`focus-svn config ${inputs}`);
+            return;
+        }
+
+        if (load) {
+            console.log(load);
+            const newConfig = JSON.parse(load);
+
+            await config.overwrite(newConfig);
+
+            svn.log('Updated config');
+            return;
+        }
+
+        const updates = ['verbose', 'silent', 'branchDir', 'activeTrunk', 'branchPrefix', 'root'].map(async key => {
             if (data[key]) {
-                originalValue = data[key];
+                const value = data[key];
                 svn.log(`Updating ${key} to ${value}`);
-                await config.save(key, data[key]);
-                svn.log(`Success! Updated ${key} from ${originalValue} to ${data[key]}`)
+                await config.save(key, value);
+                svn.log(`Success! Updated ${key} to ${value}`)
             }
         });
 
