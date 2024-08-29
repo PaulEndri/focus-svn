@@ -46,7 +46,7 @@ export default {
         if (extract) {
             const configData = await config.getConfig();
             const inputs = Object.entries(configData).map(([key, value]) => `--${key}=${value}`).join(' ');
-            svn.log(`focus-svn config ${inputs}`);
+            svn.log(`node-svn config ${inputs}`);
             return;
         }
 

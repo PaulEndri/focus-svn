@@ -11,7 +11,7 @@ export default {
         branchSource: {
             type: 'string',
             default: null,
-            describe: 'Use this as url base instead of automatically generated root (default: focus svn root, optional)'
+            describe: 'Use this as url base instead of automatically generated root (default: svn root)'
         }
     },
     handler: async function mergeString({ branchName, svn, branchSource }) {

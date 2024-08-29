@@ -1,7 +1,7 @@
 export default {
     command: 'merge [branch]',
     aliases: ['m'],
-    describe: 'merge specified',
+    describe: 'merge specified branch into active or target branch',
     builder: {
         branchName: {
             type: 'string',
@@ -23,6 +23,6 @@ export default {
 
         const targetBranch = target !== './' ? `${dev}/${svn.getBranchName(target)}` : target;
         svn.log(`Merging ${svnBranchName} at revision ${revision} into active branch`);
-        svn.log(await svn.merge(sourceBranch, revision));
+				svn.log(await svn.merge(sourceBranch, revision, targetBranch));
     }
 }

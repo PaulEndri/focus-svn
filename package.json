@@ -1,7 +1,7 @@
 {
   "name": "focus-svn",
-  "version": "1.6.0",
-  "description": "",
+  "version": "2.0.0",
+  "description": "svn cli tool creating git-like commands and shortcuts",
   "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
@@ -10,10 +10,9 @@
   "bin": {
     "focus-svn": "./cli.js"
   },
-  "author": "",
+  "author": "Juan Sedano",
   "license": "ISC",
   "dependencies": {
-    "dotenv": "^16.4.1",
     "yargs": "^17.7.2"
   },
   "type": "module"

@@ -1,6 +1,6 @@
 export default {
     command: 'remove [branchName]',
-    aliases: ['rm'],
+    aliases: ['rm', 'delete'],
     describe: 'remove a branch from svn',
     builder: {
         branch: { default: null, type: 'string', describe: 'branch name/number to delete' }

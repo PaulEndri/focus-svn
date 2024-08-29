@@ -8,12 +8,12 @@ import config from "./config.js";
 import mergeBranch from "./mergeBranch.js";
 
 export default [
-    mergeBranch,
-    mergeString,
-    checkoutBranch,
-    rebase,
-    switchBranch,
-    createBranch,
-    config, 
-    removeBranch
+	checkoutBranch,
+	config,
+	createBranch,
+	mergeBranch,
+	mergeString,
+	rebase,
+	removeBranch,
+	switchBranch,
 ];

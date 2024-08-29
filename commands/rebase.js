@@ -4,12 +4,14 @@ export default {
     builder: {
         target: { default: null, type: 'string', describe: 'branch name to rebase into' },
         source: { default: null, type: 'string', describe: 'source branch name' },
-        branch: { default: null, type: 'string', describe: 'branch name/number' }
+        branch: { default: null, type: 'string', describe: 'branch name/number' },
+				resolve: { default: 'p', type: 'string', describe: 'resolve option for merge' }
     },
     handler: async function rebase({
         target,
         source,
         branch,
+				resolve,
         svn
     }) {
         const { dev, trunk } = svn.getUrls();
@@ -25,6 +27,6 @@ export default {
         svn.log(`Switching active branch to ${targetBranch}`);
         await svn.switch(targetBranch);
         svn.log(`Merging ${sourceBranch} at revision ${revision} into active branch`);
-        svn.log(await svn.merge(sourceBranch, revision));
+        svn.log(await svn.merge(sourceBranch, revision, './', 'HEAD', resolve));
     }
 }
