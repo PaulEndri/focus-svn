@@ -11,7 +11,7 @@ export default {
     target: {
       type: "string",
       default: "./",
-      describe: "brange to merge into (optional)",
+      describe: "branch to merge into (optional)",
     },
   },
   handler: async function mergeString({ branch, branchName, svn, target }) {
