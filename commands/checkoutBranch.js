@@ -17,7 +17,6 @@ export default {
 	},
 	handler: async function switchBranch({
 		svn,
-		jira,
 		b,
 		branch,
 		branchNumber,
