@@ -1,5 +1,5 @@
 export default {
-  command: "getMergeString",
+  command: "getMergeString [branch]",
   aliases: ["ms"],
   describe: "spit out a copy/paste ready merge string for local branch",
   builder: {
@@ -16,9 +16,9 @@ export default {
         "Use this as url base instead of automatically generated root (default: svn root)",
     },
   },
-  handler: async function mergeString({ branchName, svn, branchSource }) {
+  handler: async function mergeString({ branchName, branch, svn, branchSource }) {
     const { dev } = svn.getUrls();
-    const branch = await svn.getBranchName(branchName);
+    const branch = await svn.getBranchName(branch ?? branchName);
     const branchUrl = `${branchSource ?? dev}/${branch}`;
 
     const info = await svn.getHistory(branchUrl);

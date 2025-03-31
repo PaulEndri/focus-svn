@@ -2,5 +2,8 @@
   "activeTrunk": 1,
   "branchPrefix": "",
   "branchDir": "",
-  "root": ""
+  "root": "",
+	"jiraHost": "",
+	"jiraUserName": "",
+	"jiraToken": ""
 }

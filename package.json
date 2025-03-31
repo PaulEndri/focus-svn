@@ -1,6 +1,6 @@
 {
   "name": "focus-svn",
-  "version": "2.0.0",
+  "version": "3.0.0",
   "description": "svn cli tool creating git-like commands and shortcuts",
   "main": "index.js",
   "scripts": {
@@ -13,6 +13,10 @@
   "author": "Juan Sedano",
   "license": "ISC",
   "dependencies": {
+    "@types/jira-client": "^7.1.9",
+    "jira-client": "^8.2.2",
+    "luxon": "^3.6.1",
+    "node-fetch": "^3.3.2",
     "yargs": "^17.7.2"
   },
   "type": "module",
