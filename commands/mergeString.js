@@ -18,8 +18,8 @@ export default {
   },
   handler: async function mergeString({ branchName, branch, svn, branchSource }) {
     const { dev } = svn.getUrls();
-    const branch = await svn.getBranchName(branch ?? branchName);
-    const branchUrl = `${branchSource ?? dev}/${branch}`;
+    const activeBranch = await svn.getBranchName(branch ?? branchName);
+		const branchUrl = `${branchSource ?? dev}/${activeBranch}`;
 
     const info = await svn.getHistory(branchUrl);
 
