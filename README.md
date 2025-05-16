@@ -41,7 +41,7 @@ change tool default variables
 | verbose | - | boolean | undefined |  |
 | silent | - | boolean | undefined |  |
 | jiraHost | - | string | jira source url |  |
-| jiraUserName | - | string | jira username |  |
+| jiraUsername | - | string | jira username |  |
 | jiraToken | - | string | jira api key |  |
 | branchDir | - | string | svn branch directory |  |
 | extract | - | boolean | echo out the config json |  |

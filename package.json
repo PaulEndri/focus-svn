@@ -1,6 +1,6 @@
 {
   "name": "focus-svn",
-  "version": "3.0.1",
+  "version": "3.0.2",
   "description": "svn cli tool creating git-like commands and shortcuts",
   "main": "index.js",
   "scripts": {

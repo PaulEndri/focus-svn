@@ -36,7 +36,7 @@ export default {
 			type: "string",
 			describe: "jira source url"
 		},
-		jiraUserName: {
+		jiraUsername: {
 			default: null,
 			type: "string",
 			describe: "jira username",
@@ -89,6 +89,9 @@ export default {
       "branchDir",
       "activeTrunk",
       "branchPrefix",
+			"jiraUsername",
+			"jiraToken",
+			"jiraHost",
       "root",
     ].map(async (key) => {
       if (data[key]) {
