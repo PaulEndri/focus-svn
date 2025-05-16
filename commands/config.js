@@ -69,7 +69,7 @@ export default {
       const inputs = Object.entries(configData)
         .map(([key, value]) => `--${key}=${value}`)
         .join(" ");
-      svn.log(`node-svn config ${inputs}`);
+      svn.log(`focus-svn config ${inputs}`);
       return;
     }
 
