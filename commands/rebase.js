@@ -29,7 +29,6 @@ export default {
     const { dev, trunk } = svn.getUrls();
     const fullBranchName = await svn.getBranchName(branch);
     const branchName = fullBranchName.split("-").slice(0, 2).join("-");
-    g;
     const dateSuffix = DateTime.now().toFormat("MMdd");
     const targetBranchName = `${branchName}-${dateSuffix}`;
     const targetBranch = target
